@@ -3,7 +3,13 @@ import logo from "../../images/logo_center.png";
 import { icons } from "../../icons/iconc.js";
 import { Link } from "react-router-dom";
 import "../../App.css";
+import { csti } from "../../feature/queryApi.js";
+import { useQuery } from "react-query";
+import { Link as ScrollLink } from "react-scroll";
+
 export default function Footer() {
+  const { data: projects } = useQuery(["projects"], () => csti.projects(""));
+
   return (
     <div className="bg-[#E2E7FA] py-10">
       <div className="container md:max-w-9xl md:mx-auto flex justify-between md:py-3 py-1.5 max-w-[90%] mx-auto items-start md:flex-row flex-col ">
@@ -16,7 +22,7 @@ export default function Footer() {
                   alt="csti logo"
                   className="md:w-[70px]  w-[30px]"
                 />
-                <p className="md:text-[20px] font-semibold md:mb-1 text-[12px] leading-[25px]">
+                <p className="md:text-[20px] font-semibold md:mb-1 text-[12px] md:leading-[25px] leading-[20px]">
                   Ilmiy texnik <br /> axborot markazi
                 </p>
               </Link>
@@ -42,41 +48,54 @@ export default function Footer() {
           </div>
           <div className=" w-[50%] flex flex-col ">
             <div class="relative w-full flex items-end">
-              <h3 className="md:text-[24px] text-[20px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
-                Quick Links
+              <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
+                Linklar
               </h3>
             </div>
 
             <ul className="mt-4">
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                <Link className="flex items-center gap-3">
+                <Link className="flex items-center gap-3" to="/">
                   {" "}
                   {icons.right} Bosh Sahifa
                 </Link>
               </li>
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                <Link className="flex items-center gap-3">
+                <Link className="flex items-center gap-3" to="/fotogalary">
                   {" "}
                   {icons.right} Galereyalar
                 </Link>
               </li>
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                <Link className="flex items-center gap-3">
+                <Link
+                  className="flex items-center gap-3"
+                  to={`projects/${projects?.length}`}
+                >
                   {" "}
                   {icons.right} Loyihalar
                 </Link>
               </li>
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                <Link className="flex items-center gap-3">
+                <ScrollLink
+                  className="flex items-center gap-3 cursor-pointer"
+                  smooth={true}
+                  duration={500}
+                  to="faoliyat"
+                >
                   {" "}
                   {icons.right} Faoliyat
-                </Link>
+                </ScrollLink>
               </li>
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                <Link className="flex items-center gap-3">
+                <ScrollLink
+                  className="flex items-center gap-3 cursor-pointer"
+                  smooth={true}
+                  duration={500}
+                  to="rahbariyat"
+                >
                   {" "}
                   {icons.right} Rahbariyat
-                </Link>
+                </ScrollLink>
               </li>
             </ul>
           </div>
@@ -84,8 +103,8 @@ export default function Footer() {
         <div className="flex md:w-[50%]">
           <div className=" w-[50%] flex flex-col ">
             <div class="relative w-full flex items-end">
-              <h3 className="md:text-[24px] text-[20px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
-                Contact Us
+              <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
+                Bog'lanish
               </h3>
             </div>
             <ul className="mt-4">
@@ -96,10 +115,10 @@ export default function Footer() {
                 <div>
                   <p className="uppercase">Phone Number</p>
                   <Link
-                    to="tel:+25862323258"
+                    to="tel:+998712033223"
                     className="font-[600] hover:text-blue-500 transition-all duration-150 text-gray-800 "
                   >
-                    +998883921383
+                    +998 (71) 203-32-23
                   </Link>
                 </div>
               </li>
@@ -124,10 +143,10 @@ export default function Footer() {
                 <div>
                   <p className="uppercase">Email Address</p>
                   <Link
-                    to="https://maps.app.goo.gl/WYjxXC7bKiLLKzGX6"
+                    to="https://info.csti@ilmiy.uz"
                     className="font-[600] hover:text-blue-500 transition-all duration-150 text-gray-800 "
                   >
-                    help.gmail.com
+                    info.csti@ilmiy.uz
                   </Link>
                 </div>
               </li>
@@ -135,25 +154,23 @@ export default function Footer() {
           </div>
           <div className=" w-[50%] flex flex-col ">
             <div class="relative w-full flex items-end">
-              <h3 className="md:text-[24px] text-[20px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
-                Get In Touch
+              <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
+                Aloqada Boling
               </h3>
             </div>
             <ul className="mt-4">
               <p className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
-                Subsrcibe to our upcoming latest article and news resources.
-                Sign up today for hints. tips and the latest product news
+                Murojaat va takliflar bo'yicha{" "}
+                <ScrollLink
+                  className="text-blue-500 cursor-pointer"
+                  to="contact"
+                  smooth={true}
+                  duration={1000}
+                >
+                  Bizga Murojaat qiling{" "}
+                </ScrollLink>{" "}
+                Bizga Murojaat qiling bo'limida yozishingiz mumkin!
               </p>
-              <form action="" className="flex items-center w-full">
-                <input
-                  type="text"
-                  placeholder="Enter email address"
-                  className="w-full"
-                />
-                <button className="bg-blue-500 py-[10px] text-[20px] leading-[24px] border border-black px-[8px] border-s-0 text-white">
-                  {icons.telegram}
-                </button>
-              </form>
             </ul>
           </div>
         </div>

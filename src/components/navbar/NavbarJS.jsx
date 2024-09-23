@@ -6,19 +6,37 @@ import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import "../../App.css";
 import { icons } from "../../icons/iconc.js";
-
-const menuNav = [
-  { title: "Rahbariyat", to: "rahbariyat", smooth: true },
-  { title: "Faoliyat", to: "faoliyat", smooth: true },
-  { title: "Yangiliklar", to: "yangiliklar", smooth: true },
-  { title: "Xalqaro hamkorlik", to: "hamkorlar", smooth: true },
-  { title: "Dayjestlar", to: "dayjestlar", smooth: true },
-];
+import { csti } from "../../feature/queryApi.js";
+import { useQuery } from "react-query";
 
 export default function NavbarJS() {
   const [openMenu, setOpenMenu] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const location = useLocation();
+
+  const { data } = useQuery(["news"], () => csti.news(""));
+  const { data: dyjes } = useQuery(["dyjes"], () => csti.dyjes(""));
+  const { data: projects } = useQuery(["projects"], () => csti.projects(""));
+
+  const menuNav = [
+    {
+      title: "Rahbariyat",
+      to: location.pathname === "/" ? "rahbariyat" : "/",
+      smooth: true,
+    },
+    {
+      title: "Faoliyat",
+      to: location.pathname === "/" ? `faoliyat` : "/",
+      smooth: true,
+    },
+    { title: "Yangiliklar", to: `/newspage/${data?.length}`, smooth: true },
+    {
+      title: "Xalqaro hamkorlik",
+      to: location.pathname === "/" ? "hamkorlar" : "/",
+      smooth: true,
+    },
+    { title: "Dayjestlar", to: `dayjes/${dyjes?.length}`, smooth: true },
+  ];
 
   const items1 = [
     {
@@ -29,12 +47,15 @@ export default function NavbarJS() {
             to="about"
             smooth={true}
             duration={500}
-            className="text-[14px] font-[500] uppercase"
+            className="text-[14px] font-[500] uppercase menu_item"
           >
             Markaz haqida
           </Link>
         ) : (
-          <RouterLink to="/" className="text-[14px] font-[500] uppercase">
+          <RouterLink
+            to="/"
+            className="text-[14px] font-[500] uppercase menu_item"
+          >
             Markaz haqida
           </RouterLink>
         ),
@@ -45,7 +66,7 @@ export default function NavbarJS() {
         <RouterLink
           rel="noopener noreferrer"
           to="/tuzilma"
-          className="text-[14px] font-[500] uppercase"
+          className="text-[14px] font-[500] uppercase menu_item"
         >
           Tashkiliy tuzilma
         </RouterLink>
@@ -57,38 +78,37 @@ export default function NavbarJS() {
     {
       key: "1",
       label: (
-        <Link
+        <RouterLink
           rel="noopener noreferrer"
-          to="loyihalar"
-          className="text-[14px] font-[500] uppercase"
+          to={`projects/${projects?.length}`}
+          className="text-[14px] font-[500] uppercase menu_item"
         >
           Loyihalar
-        </Link>
+        </RouterLink>
       ),
     },
     {
       key: "2",
       label: (
-        <Link
+        <RouterLink
           rel="noopener noreferrer"
-          to="fotogalereya"
-          className="text-[14px] font-[500] uppercase"
+          to="/photogallery"
+          className="text-[14px] font-[500] uppercase menu_item"
         >
           Fotogalereya
-        </Link>
+        </RouterLink>
       ),
     },
     {
       key: "3",
       label: (
-        <Link
-          target="_blank"
+        <RouterLink
           rel="noopener noreferrer"
-          to="videogalereya"
-          className="text-[14px] font-[500] uppercase"
+          to="/videogallery"
+          className="text-[14px] font-[500] uppercase menu_item"
         >
           Videogalereya
-        </Link>
+        </RouterLink>
       ),
     },
   ];
@@ -119,19 +139,19 @@ export default function NavbarJS() {
       } bg-white top-0 left-0 z-[999] w-full transition-opacity duration-300`}
     >
       <div className="container md:max-w-9xl md:mx-auto flex justify-between md:py-3 py-1.5 max-w-[90%] mx-auto items-center">
-        <Link
+        <RouterLink
           className="logoSec  flex items-center gap-3"
-          to="#"
+          to="/"
           smooth={true}
           duration={500}
         >
           <img src={logo} alt="csti logo" className="md:w-[70px]  w-[30px]" />
-          <p className="md:text-[20px] font-semibold md:mb-1 text-[12px] md:leading-[25px]">
+          <p className="md:text-[20px] font-semibold md:mb-1 text-[12px] md:leading-[25px] logo">
             Ilmiy texnik <br /> axborot markazi
           </p>
-        </Link>
-        <div className="menu hidden md:block">
-          <div className="flex space-x-4 items-center uppercase font-[600] text-[14px]">
+        </RouterLink>
+        <div className="menu hidden lg:block">
+          <div className="flex lg:space-x-4 md:space-x-2 items-center uppercase font-[600] text-[14px]">
             <Dropdown menu={{ items: items1 }}>
               <Link
                 onClick={(e) => e.preventDefault()}
@@ -140,43 +160,61 @@ export default function NavbarJS() {
                 duration={500}
                 className="cursor-pointer"
               >
-                <Space>
+                <Space className="menu_item">
                   Bosh Sahifa
                   <DownOutlined className="text-[12px]" />
                 </Space>
               </Link>
             </Dropdown>
-            {menuNav.map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className="cursor-pointer"
-                smooth={true}
-                duration={500}
-              >
-                {item.title}
-              </Link>
-            ))}
+            {menuNav.map((item, index) =>
+              item.title === "Yangiliklar" ||
+              item.title === "Dayjestlar" ||
+              location.pathname !== "/" ? (
+                <RouterLink
+                  key={index}
+                  to={item.to}
+                  className="cursor-pointer menu_item"
+                >
+                  {item.title}
+                </RouterLink>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.to}
+                  className="cursor-pointer menu_item"
+                  smooth={true}
+                  duration={500}
+                >
+                  {item.title}
+                </Link>
+              )
+            )}
             <Dropdown menu={{ items: items2 }}>
-              <Link className="cursor-pointer">
-                <Space>
+              <Link className="cursor-pointer" to="#">
+                <Space className="menu_item">
                   Galereyalar
                   <DownOutlined className="text-[12px]" />
                 </Space>
               </Link>
             </Dropdown>
-            <Link
-              to="contact"
-              className="cursor-pointer"
-              smooth={true}
-              duration={500}
-            >
-              Biz bilan bog'lanish
-            </Link>
+            {location.pathname !== "/" ? (
+              <RouterLink to="/" className="cursor-pointer menu_item px-5">
+                Biz bilan bog'lanish
+              </RouterLink>
+            ) : (
+              <Link
+                to="contact"
+                className="cursor-pointer menu_item"
+                smooth={true}
+                duration={500}
+              >
+                Biz bilan bog'lanish
+              </Link>
+            )}
           </div>
         </div>
         <div
-          className="cursor-pointer block md:hidden"
+          className="cursor-pointer block lg:hidden md:text-[30px] text-[20px]"
           onClick={() => setOpenMenu(true)}
         >
           {icons.burger}
@@ -221,35 +259,54 @@ export default function NavbarJS() {
                 </Space>
               </Link>
             </Dropdown>
-            {menuNav.map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className="px-5"
-                onClick={handleCloseMenu}
-                smooth={item.smooth}
-                duration={500}
-              >
-                {item.title}
-              </Link>
-            ))}
+            {menuNav?.map((item, index) =>
+              item.title === "Yangiliklar" ||
+              item.title === "Dayjestlar" ||
+              location.pathname !== "/" ? (
+                <RouterLink
+                  key={index}
+                  to={item.to}
+                  className="cursor-pointer menu_item px-5"
+                  onClick={handleCloseMenu}
+                >
+                  {item.title}
+                </RouterLink>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.to}
+                  className="cursor-pointer menu_item px-5"
+                  smooth={true}
+                  duration={500}
+                  onClick={handleCloseMenu}
+                >
+                  {item.title}
+                </Link>
+              )
+            )}
             <Dropdown menu={{ items: items2 }} className="px-5">
-              <Link className="cursor-pointer">
+              <div className="cursor-pointer">
                 <Space>
                   Galereyalar
                   <DownOutlined className="text-[12px]" />
                 </Space>
-              </Link>
+              </div>
             </Dropdown>
-            <Link
-              to="contact"
-              className="px-5 cursor-pointer"
-              onClick={handleCloseMenu}
-              smooth={true}
-              duration={500}
-            >
-              Biz bilan bog'lanish
-            </Link>
+            {location.pathname !== "/" ? (
+              <RouterLink to="/" className="cursor-pointer menu_item px-5">
+                Biz bilan bog'lanish
+              </RouterLink>
+            ) : (
+              <Link
+                to="contact"
+                className="px-5 cursor-pointer"
+                onClick={handleCloseMenu}
+                smooth={true}
+                duration={500}
+              >
+                Biz bilan bog'lanish
+              </Link>
+            )}
           </div>
         </div>
       </div>

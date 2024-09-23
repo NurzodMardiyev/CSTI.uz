@@ -8,6 +8,11 @@ import { Route, Routes } from "react-router-dom";
 import SCTI from "./layouts/SCTILayout";
 import MainJS from "./layouts/MainJS";
 import Tuzilma from "./pages/tuzilma/Tuzilma";
+import NewsPage from "./components/news/NewsPage";
+import DeyjeslarPage from "./components/deyjistlar/DeyjeslarPage";
+import FotoGalary from "./components/galareya/FotoGalary";
+import VideoGalary from "./components/galareya/VideoGalary";
+import ProjectsPage from "./components/projects/ProjectsPage";
 
 function App() {
   return (
@@ -16,6 +21,11 @@ function App() {
         <Route path="/" element={<SCTI />}>
           <Route path="" element={<MainJS />} />
           <Route path="/tuzilma" element={<Tuzilma />} />
+          <Route path="/newspage/:id" element={<NewsPage />} />
+          <Route path="/dayjes/:id" element={<DeyjeslarPage />} />
+          <Route path="/projects/:id" element={<ProjectsPage />} />
+          <Route path="/photogallery" element={<FotoGalary />} />
+          <Route path="/videogallery" element={<VideoGalary />} />
         </Route>
       </Routes>
     </div>

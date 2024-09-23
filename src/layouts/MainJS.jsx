@@ -7,6 +7,8 @@ import Galary from "../components/galareya/Galary";
 import Contact from "../components/contact/Contact";
 import Hamkorlar from "../components/hamkorlar/Hamkorlar";
 import Faoliyati from "../components/faoliyati/Faoliyati";
+import Deyjistlar from "../components/deyjistlar/Deyjistlar";
+import Projects from "../components/projects/Projects";
 
 export default function MainJS() {
   return (
@@ -15,8 +17,10 @@ export default function MainJS() {
       <Rahbariyat />
       <About />
       <News />
+      <Projects />
       <Galary />
       <Faoliyati />
+      <Deyjistlar />
       <Hamkorlar />
       <Contact />
     </div>

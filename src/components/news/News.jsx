@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../App.css";
-import image from "../../images/header2.jpg";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { csti } from "../../feature/queryApi";
+import { Link } from "react-router-dom";
+import { Flex, Spin } from "antd";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,6 +60,8 @@ const PrevArrow = ({ className, style, onClick }) => {
 };
 
 const News = () => {
+  const queryClient = useQueryClient();
+
   const settings = {
     // dots: true,
     infinite: true,
@@ -90,99 +95,83 @@ const News = () => {
     ],
   };
 
-  const cards = [
-    {
-      id: 1,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed ",
-      title: "Nazirov Sardor Jamoliddin o’g’li1",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23 ichki raqam (878)",
+  const news = useMutation(csti.news, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("heroSection");
     },
-    {
-      id: 2,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed  o’rinbosari",
-      title: "Rahimov Farhod Xushboqovich",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23",
+    onError: (error) => {
+      console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
     },
-    {
-      id: 3,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed  o’rinbosari:",
-      title: "Rayimov Xurshidjon G’ayratjon o’g’li",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23",
-    },
-    {
-      id: 4,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed ",
-      title: "Nazirov Sardor Jamoliddin o’g’li1",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23 ichki raqam (878)",
-    },
-    {
-      id: 5,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed ",
-      title: "Nazirov Sardor Jamoliddin o’g’li1",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23 ichki raqam (878)",
-    },
-    {
-      id: 6,
-      info: "lorem23It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed ",
-      title: "Nazirov Sardor Jamoliddin o’g’li1",
-      img: "https://www.sardor.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar2.7d026018.jpeg&w=64&q=75",
-      tel: "+998 (71) 203-32-23 ichki raqam (878)",
-    },
-  ];
+  });
+
+  useEffect(() => {
+    news.mutate(); // Mutationni boshlash
+  }, []);
+
+  const { data, error, isLoading } = useQuery(["news"], () => csti.news(""));
+
+  if (isLoading)
+    return (
+      <div className="absolute w-full h-[100vh] top-0 left-0 flex items-center justify-center">
+        <Flex>
+          <Spin size="large" />
+        </Flex>
+      </div>
+    );
+  if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div className="md:mb-10" id="yangiliklar">
-      <div className="container md:max-w-9xl md:mx-auto justify-between py-14 max-w-[90%] mx-auto items-center bg-[#1c1c25] my-7 md:px-10 px-6 md:py-10 rounded-[15px]">
-        <div className="md:mt-16 px-6 md:px-0">
-          <span className="md:text-[16px] text-[12px] font-[600] text-white uppercase">
-            yangiliklar
-          </span>
-          <h2 className="md:text-[40px] text-[24px] font-[700] text-white news_title">
-            Eng So'ngi yangiliklar to'plami
-          </h2>
-        </div>
-        <Slider {...settings} className="mb-10 md:mt-8 mt-6 ">
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className=" flex justify-center text-center w-full items-center cardOne py-5 "
-            >
-              <div className=" flex justify-center w-full ">
-                <div className="flex justify-center flex-col items-center w-full text-center py-10 px-5 mx-5 border border-slate-700 rounded-2xl">
-                  <div className=" overflow-hidden rounded-[20px]">
-                    <img
-                      src={image}
-                      alt="Raxbariyat azo'si"
-                      className="transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full h-full"
-                    />
-                  </div>
-                  <div className="text-white rounded-[10px] p-5 mt-4">
-                    <div className="flex flex-col  items-start">
-                      <h3 className="md:text-[24px] text-[20px] font-[700] text-start">
-                        {card.title}
-                      </h3>
-                      <span className="text-[14px] font-[400] text-start line-clamp-4">
-                        {card.info}:
-                      </span>
-                      <button className="text-blue-500">detail...</button>
+    <>
+      {/* Asosiy page */}
+      <div className="md:mb-10" id="yangiliklar">
+        <div className="container md:max-w-9xl md:mx-auto justify-between py-14 max-w-[90%] mx-auto items-center bg-[#1c1c25] my-7 md:px-10 px-6 md:py-10 rounded-[15px]">
+          <div className="md:mt-16 px-6 md:px-0">
+            <span className="md:text-[16px] text-[12px] font-[600] text-white uppercase">
+              yangiliklar
+            </span>
+            <h2 className="md:text-[40px] text-[24px] font-[700] text-white news_title">
+              So'nggi yangiliklar
+            </h2>
+          </div>
+          <Slider {...settings} className="mb-10 md:mt-8 mt-6 ">
+            {data?.map((card) => (
+              <div
+                key={card.id}
+                className=" flex justify-center  w-full items-center cardOne py-5 "
+              >
+                <div className=" flex justify-center w-full">
+                  <Link
+                    to={`newspage/${card.id}`}
+                    className="flex justify-center flex-col items-center w-full text-center py-10 px-5 mx-5 border border-slate-700 rounded-2xl cursor-pointer"
+                  >
+                    <div className=" overflow-hidden rounded-[20px]">
+                      <img
+                        src={card.images[0].image}
+                        alt={card.title}
+                        className="transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full h-full"
+                      />
                     </div>
-                    <div className="text-start">
-                      <span className="text-[13px] font-[600]">Tel: </span>
-                      <span>{card.tel}</span>
+                    <div className="text-white rounded-[10px] p-5 mt-4 w-full">
+                      <div className="flex flex-col w-full  items-start">
+                        <h3 className="md:text-[24px] text-[20px] font-[700] text-start line-clamp-1">
+                          {card.title}
+                        </h3>
+                        <span className="text-[14px] font-[400] text-start line-clamp-2">
+                          {card.content}
+                        </span>
+                        <Link to={card.source} className="text-blue-500">
+                          batafsil...
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

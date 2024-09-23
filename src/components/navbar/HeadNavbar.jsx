@@ -32,9 +32,9 @@ export default function HeadNavbar() {
                 <Link
                   to={item.type}
                   key={index}
-                  className={`${item.display}  gap-2 md:text-[16px] text-[10px] text-[#6A6F7C]  font-[600] md:flex  flex items-center`}
+                  className={`${item.display}  gap-2 md:text-[12px] text-[10px] text-[#6A6F7C]  font-[600] md:flex  flex items-center`}
                 >
-                  <span className="md:text-xl text-[12px] text-blue-500">
+                  <span className="md:text-[14px]] text-[12px] text-blue-500">
                     {item.icon}
                   </span>
                   <span>{item.item}</span>
@@ -45,31 +45,31 @@ export default function HeadNavbar() {
         </div>
         <div className="rightSec">
           <div className="flex items-center gap-4">
-            <span className="text-[#141D38] text-[16px] font-[600] md:block hidden">
+            <span className="text-[#141D38] text-[12px] font-[600] md:block hidden">
               Bizga Qoshiling:
             </span>
             <Link
               to="https://www.facebook.com/innovation.gov.uz/"
-              className="md:text-[16px] text-[10px]"
+              className="md:text-[14px] text-[10px]"
             >
               {icons.facebook}
             </Link>
             <Link
               to="https://t.me/cntiuz"
-              className="md:text-[16px] text-[10px]"
+              className="md:text-[14px] text-[10px]"
             >
               {" "}
               {icons.telegram}
             </Link>
             <Link
               to="https://www.instagram.com/ilmiy_texnik_axborot_markazi/?igsh=b2Qzejl2YXlsNTZj"
-              className="md:text-[16px] text-[10px]"
+              className="md:text-[14px] text-[10px]"
             >
               {icons.instagram}
             </Link>
             <Link
               to="https://www.youtube.com/channel/UCvL9mBAQQh--TsyZtQKhKzA/videos"
-              className="md:text-[16px] text-[10px]"
+              className="md:text-[14px] text-[10px]"
             >
               {icons.youtube}
             </Link>

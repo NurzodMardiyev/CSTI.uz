@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import swipeImg1 from "../../images/header1.jpg";
-import swipeImg2 from "../../images/header2.jpg";
-import swipeImg3 from "../../images/header3.jpg";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -11,10 +8,31 @@ import "swiper/css/navigation";
 import "../../App.css";
 import { Pagination } from "swiper/modules";
 import { Autoplay, Navigation } from "swiper/modules";
-import { icons } from "../../icons/iconc.js";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { csti } from "../../feature/queryApi.js";
+import { Flex, Spin } from "antd";
 
 export default function HeaderJS() {
   const [isFixed, setIsFixed] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const heroSection = useMutation(csti.heroSection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("heroSection");
+    },
+    onError: (error) => {
+      console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
+    },
+  });
+
+  useEffect(() => {
+    heroSection.mutate(); // Mutationni boshlash
+  }, []);
+
+  const { data, error, isLoading } = useQuery(["heroSection"], () =>
+    csti.heroSection("")
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,27 +49,27 @@ export default function HeaderJS() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (isLoading)
+    return (
+      <div className="absolute w-full h-[100vh] top-0 left-0 flex items-center justify-center">
+        <Flex>
+          <Spin size="large" />
+        </Flex>
+      </div>
+    );
+  if (error) return <div>An error occurred: {error.message}</div>;
   return (
     <div className={`relative z-10 ${isFixed ? "md:mt-[93px] mt-[48px]" : ""}`}>
       <div className="headerInfo absolute w-full h-[80vh] z-10 text-white">
         <div className="container md:max-w-9xl md:mx-auto flex flex-col  md:py-3 py-1.5 max-w-[90%] mx-auto justify-center h-full gap-3">
           <h1 className="md:text-[54px] font-[600] head_ttile text-[40px]">
-            Ilmiy texnik axborot markazi
+            {data[0]?.title}
           </h1>
           <p className="md:text-[16px] text-[14px] md:w-[750px] w-[330px] ]">
-            Oʻzbekiston Respublikasini innovatsion va ilmiy-texnik
-            rivojlantirish sohasida jamiyat va davlat hayotini har tomonlama
-            rivojlantirishga, mamlakatning intellektual va texnologik
-            salohiyatini oshirish bilan shugʻullanuvchi tashkilot.
+            {data[0]?.description}
           </p>
-          <div>
-            <button className="flex items-center text-[16px] font-[500] gap-3">
-              <span className=" rounded-full flex justify-center items-center w-[45px] h-[45px] border-4 border-blue-500 text-white text-[17px] hover:bg-blue-500 transition-all duration-150">
-                {icons.play}{" "}
-              </span>{" "}
-              Videoni Ko'rish
-            </button>
-          </div>
+          <div></div>
         </div>
       </div>
       <Swiper
@@ -69,15 +87,18 @@ export default function HeaderJS() {
         className="mySwiper"
       >
         <div className="">
-          <SwiperSlide className="w-full h-[60vh] rounded-[10px]">
-            <img src={swipeImg1} alt="header 1" className="w-full h-[100%]" />
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-[60vh] rounded-[10px]">
-            <img src={swipeImg2} alt="header 2" className="w-full h-[100%]" />
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-[60vh] rounded-[10px]">
-            <img src={swipeImg3} alt="header 3" className="w-full h-[100%]" />
-          </SwiperSlide>
+          {data?.map((item) => (
+            <SwiperSlide
+              className="w-full h-[60vh] rounded-[10px]"
+              key={item.id}
+            >
+              <img
+                src={item.image}
+                alt="header 1"
+                className="w-full h-[100%]"
+              />
+            </SwiperSlide>
+          ))}
         </div>
       </Swiper>
     </div>

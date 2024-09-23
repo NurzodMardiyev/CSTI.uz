@@ -96,3 +96,16 @@ body {
   left: 0 !important;
   z-index: 1000 !important;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1400px) {
+  .menu .menu_item, .menu .ant-space-item{
+    font-size: 10px !important;
+    /* margin-left: 6px !important; */
+  }
+   :where(.css-dev-only-do-not-override-11lehqq).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-title-content >a, :where(.css-dev-only-do-not-override-11lehqq).ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-title-content >a {
+    font-size: 10px !important;
+   }
+   .logo {
+    font-size: 18px;
+   }
+}

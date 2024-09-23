@@ -1,8 +1,37 @@
 import { icons } from "../../icons/iconc.js";
-import React from "react";
-import image from "../../images/aboutus.jpg";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { csti } from "../../feature/queryApi.js";
+import { Flex, Spin } from "antd";
 
 export default function About() {
+  const queryClient = useQueryClient();
+  const [show, setShow] = useState(false);
+
+  const heroSection = useMutation(csti.about, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("heroSection");
+    },
+    onError: (error) => {
+      console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
+    },
+  });
+
+  useEffect(() => {
+    heroSection.mutate(); // Mutationni boshlash
+  }, []);
+
+  const { data, error, isLoading } = useQuery(["about"], () => csti.about(""));
+
+  if (isLoading)
+    return (
+      <div className="absolute w-full h-[100vh] top-0 left-0 flex items-center justify-center">
+        <Flex>
+          <Spin size="large" />
+        </Flex>
+      </div>
+    );
+  if (error) return <div>An error occurred: {error.message}</div>;
   return (
     <div className="" id="about">
       <div className="container md:max-w-9xl md:mx-auto flex md:flex-row md:gap-0 gap-5 flex-col justify-between py-14  max-w-[90%] mx-auto items-center border my-7 md:px-14 px-6 rounded-xl md:py-20">
@@ -12,56 +41,41 @@ export default function About() {
               Biz Haqimizda
             </span>
             <h2 className="font-[700] md:text-[40px] text-[24px] text-gray-800 md:leading-[50px] mb-4">
-              Ilmiy texnik axborot markazi <br /> haqida
+              {data?.title}
             </h2>
-            <p className="md:text-[16px] text-[14px] text-[#737887] font-[400] line-clamp-6 md:line-clamp-none md:mb-4">
-              Oʻzbekiston Respublikasi Prezidentining 2017-yil 30-noyabrdagi
-              “Oʻzbekiston Respublikasi innovatsion rivojlanish vazirligi
-              faoliyatini tashkil etish toʻgʻrisida”gi PQ-3416-sonli qarori,
-              2018-yil 21-sentyabrdagi “2019 — 2021-yillarda Oʻzbekiston
-              Respublikasini innovatsion rivojlantirish strategiyasini
-              tasdiqlash toʻgʻrisida”gi PF-5544-son Farmoni, 2021-yil
-              1-apreldagi “Ilm fan sohasidagi davlat siyosati va innovatsion
-              rivojlanishdagi davlat boshqaruvini yanada takomillashtirish
-              chora-tadbirlari toʻgʻrisida”gi PQ-5047-son qarori, Vazirlar
-              Mahkamasining 2021-yil 28-avgustdagi “Ilmiy va innovatsion
-              faoliyatni boshqarish tizimini tashkil etish chora-tadbirlari
-              toʻgʻrisida”gi 545-son qarori asosida tashkil topilgan.
+            <p
+              className={`md:text-[16px] text-[14px] text-[#737887] font-[400] ${
+                show ? "line-clamp-none" : "line-clamp-6"
+              }  md:line-clamp-none md:mb-4`}
+            >
+              {data?.info}
             </p>
-            <span className="text-blue-500 cursor-pointer  mb-4 inline-block md:hidden">
+            <span
+              className="text-blue-500 cursor-pointer  mb-4 inline-block md:hidden"
+              onClick={() => setShow(!show)}
+            >
               details...
             </span>
           </div>
           <div className="flex flex-col gap-2">
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              Davlat ilmiy-texnik axborot tizimini takomillashtirish
+              {data?.comments[0].comment}
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              Ilmiy-texnik axborot tizimi bazasida axborot-tahliliy xizmatlar
-              shakllantirish
+              {data?.comments[1].comment}
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              Davlat va nodavlat sektori uchun fan va innovatsiyalar sohasida
-              yuqori sifatli axborot-tahliliy xizmatlarning ishonchli yetkazib
-              berish
+              {data?.comments[2].comment}
             </p>
-          </div>
-          <div>
-            <button className="bg-blue-500 flex items-center px-6 py-3 rounded-3xl mt-4 text-[14px] uppercase fpnt-[700] text-white gap-3">
-              <span className=" text-blue-500 bg-white rounded-full w-[25px] h-[25px] text-[10px] flex justify-center items-center">
-                {icons.play}
-              </span>
-              View Client Stories
-            </button>
           </div>
         </div>
         <div className="rightSec md:max-w-[48%] relative">
           <div className="md:max-w-[500px] border h-[500px] overflow-hidden rounded-[20px]">
             <img
-              src={image}
+              src={data?.image}
               alt="aboutImage"
               className="w-full object-cover h-full rounded-[20px] transition-transform transform hover:scale-110 duration-300"
             />

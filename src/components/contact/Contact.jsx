@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { icons } from "../../icons/iconc.js";
 // import { Select } from "antd";
 import { Input } from "antd";
 import "../../App.css";
+import { useForm } from "react-hook-form";
+import { csti } from "../../feature/queryApi.js";
+import { useMutation, useQueryClient } from "react-query";
+
+import { Toast } from "primereact/toast";
 
 const { TextArea } = Input;
 
@@ -10,7 +15,53 @@ const { TextArea } = Input;
 //   console.log(`selected ${value}`);
 // };
 export default function Contact() {
-  const [value, setValue] = useState("");
+  const [valueAppeal, setValueAppeal] = useState();
+  const { register, handleSubmit, reset, setValue } = useForm();
+  const toast = useRef(null);
+
+  const queryClient = useQueryClient();
+
+  const appeals = useMutation(csti.appeals, {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      showSuccess();
+      setValueAppeal("");
+      reset();
+    },
+    onError: () => {
+      showError();
+      console.log("error mutation");
+    },
+  });
+
+  const handletakeValue = (data) => {
+    appeals.mutate(data);
+
+    setValue("text", valueAppeal);
+
+    console.log(data);
+  };
+
+  // If code success give to backend
+
+  const showSuccess = () => {
+    toast.current.show({
+      severity: "success",
+      summary: "Success",
+      detail: "Muvaffaqiyatli yuborildi!",
+      life: 3000,
+    });
+  };
+
+  // If code error give to backend
+  const showError = () => {
+    toast.current.show({
+      severity: "error",
+      summary: "Error",
+      detail: "Ma'lumotlarn to'liq kiritilganga ishonch hosil qiling!",
+      life: 3000,
+    });
+  };
   return (
     <div className="contact_bg" id="contact">
       <div className="container md:max-w-9xl md:mx-auto flex flex-col justify-start max-w-[90%] mx-auto items-start md:py-20 py-14">
@@ -29,7 +80,11 @@ export default function Contact() {
           </p>
         </div>
         <div className="md:w-[70%] w-full">
-          <form action="" className="grid grid-col-1 gap-x-6 gap-y-6">
+          <form
+            action=""
+            className="grid grid-col-1 gap-x-6 gap-y-6"
+            onSubmit={handleSubmit(handletakeValue)}
+          >
             <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
                 <div className="mt-2">
@@ -39,8 +94,8 @@ export default function Contact() {
                     type="text"
                     autoComplete="kotibining-kompetentsiyasi"
                     className="dark:bg-gray-700 dark:text-white text-[16px]  dark:ring-0 block w-full  border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
-                    placeholder="Your Name"
-                    // {...register("showedUser")}
+                    placeholder="Ism Familiyangiz"
+                    {...register("full_name")}
                   />
                 </div>
               </div>
@@ -52,70 +107,25 @@ export default function Contact() {
                     type="text"
                     autoComplete="kotibining-kompetentsiyasi"
                     className="dark:bg-gray-700 dark:text-white text-[16px]  dark:ring-0 block w-full  border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
-                    placeholder="Your Name"
-                    // {...register("showedUser")}
+                    placeholder="Telefon Raqamangiz"
+                    {...register("phone")}
                   />
                 </div>
               </div>
             </div>
             <TextArea
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="Controlled autosize"
+              value={valueAppeal}
+              onChange={(e) => setValueAppeal(e.target.value)}
+              placeholder="Murojaatingiz"
               className="w-full "
               autoSize={{
                 minRows: 3,
                 maxRows: 5,
               }}
             />
-
-            {/* <div>
-              <div className="mt-2">
-                <Select
-                  defaultValue="lucy"
-                  style={{
-                    width: 200,
-                  }}
-                  onChange={handleChange}
-                  options={[
-                    {
-                      label: <span>manager</span>,
-                      title: "manager",
-                      options: [
-                        {
-                          label: <span>Jack</span>,
-                          value: "Jack",
-                        },
-                        {
-                          label: <span>Lucy</span>,
-                          value: "Lucy",
-                        },
-                      ],
-                    },
-                    {
-                      label: <span>engineer</span>,
-                      title: "engineer",
-                      options: [
-                        {
-                          label: <span>Chloe</span>,
-                          value: "Chloe",
-                        },
-                        {
-                          label: <span>Lucas</span>,
-                          value: "Lucas",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-              <input type="tel" placeholder="Phone Number" />
-            </div> */}
+            <Toast ref={toast} />
             <div>
-              <button
-                className="px-10 py-3 bg-blue-500 text-white uppercase font-[500]"
-                s
-              >
+              <button className="px-10 py-3 bg-blue-500 text-white uppercase font-[500]">
                 Send Message
               </button>
             </div>

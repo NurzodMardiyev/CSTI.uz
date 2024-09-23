@@ -1,114 +1,150 @@
 import axios from "axios";
-import { useQuery } from "react-query";
 
-const api = "http://192.168.3.30:8080/api";
+const api = "http://backend.csti.uz";
 
-// Tokenni har safar olish uchun
-const getToken = () => {
-  const token = localStorage.getItem("token");
-  return token ? JSON.parse(token) : null;
-};
-
-export const oavIV = {
-  login: async (userLogin) => {
+export const csti = {
+  heroSection: async () => {
     try {
-      const { data } = await axios.post(`${api}/auth/login`, userLogin);
-
-      // Tokenni localStorage ga saqlaymiz
-      localStorage.setItem("token", JSON.stringify(data.token)); // data.token o'rnida tokenni qaytaring
+      const { data } = await axios.get(`${api}/hero-section/?format=json`);
       return data;
     } catch (error) {
-      throw new Error(error.message);
-    }
-  },
-  isHaveDetails: async () => {
-    try {
-      const token = getToken(); // Tokenni olish
-      const { data } = await axios.get(`${api}/employee/available-details`, {
-        headers: {
-          Authorization: token ? ` ${token}` : "",
-          mode: "no-cors",
-        },
-      });
-      if (data === false) {
-        window.location.href = "/authemployee";
-      } else {
-        window.location.href = "https://kun.uz";
-      }
-
-      return data;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  },
-  detailInfo: async (infoDetails) => {
-    try {
-      const token = getToken();
-      const { data } = await axios.post(
-        `${api}/employee/settings/fill-details`,
-        infoDetails,
-        {
-          headers: {
-            Authorization: `${token}`,
-            "Content-Type": "application/json",
-          },
-        }
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
       );
-
-      window.location.href = "/";
-      return data;
-    } catch (error) {
-      throw new Error(error.message);
+      throw new Error(error.response ? error.response.data : error.message);
     }
   },
-  tv: async (type) => {
+  news: async () => {
     try {
-      const token = getToken();
-      const { data } = await axios.post(`${api}/post/get-content`, null, {
-        params: { type },
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
+      const { data } = await axios.get(`${api}/news/?format=json`);
       return data;
     } catch (error) {
-      throw new Error(error.message);
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
     }
   },
-  addChanal: async (chanal) => {
+  gallary: async () => {
     try {
-      const token = getToken();
-      const { data } = await axios.post(`${api}/post`, chanal, {
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("daa");
-
+      const { data } = await axios.get(`${api}/photo-gallery/?format=json`);
       return data;
     } catch (error) {
-      throw new Error(error.message);
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
     }
   },
-  addPost: async (post) => {
+  leaders: async () => {
     try {
-      const token = getToken();
-      const { data } = await axios.post(`${api}/post/create`, post, {
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("daa");
-
+      const { data } = await axios.get(`${api}/leadership/?format=json`);
       return data;
     } catch (error) {
-      throw new Error(error.message);
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  about: async () => {
+    try {
+      const { data } = await axios.get(`${api}/about/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  activity: async () => {
+    try {
+      const { data } = await axios.get(`${api}/activity/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  appeals: async (appeal) => {
+    try {
+      const { data } = await axios.post(`${api}/appeal`, appeal);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  dyjes: async () => {
+    try {
+      const { data } = await axios.get(`${api}/digests/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  fotogalary: async () => {
+    try {
+      const { data } = await axios.get(`${api}/photo-gallery/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  videogallery: async () => {
+    try {
+      const { data } = await axios.get(`${api}/video-gallery/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  projects: async () => {
+    try {
+      const { data } = await axios.get(`${api}/projects/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  getProjectFiles: async () => {
+    try {
+      const { data } = await axios.get(`${api}/document/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
     }
   },
 };

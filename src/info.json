@@ -1,0 +1,43 @@
+{
+  "rahabriyat": [
+    {
+      "id": 1,
+      "image": "https://backend.csti.uz/api/v1/rahabs",
+      "name": "Nazirov Sardor",
+      "position": "Rahbar",
+      "phone": "+998712033223"
+    }
+    
+  ],
+  "about": {
+    "title": "Ilmiy texnik axborot markazi haqida",
+    "info": "Oʻzbekiston Respublikasi Prezidentining 2017-yil 30-noyabrdagi “Oʻzbekiston Respublikasi innovatsion rivojlanish vazirligi faoliyatini tashkil etish toʻgʻrisida”gi PQ-3416-sonli qarori, 2018-yil 21-sentyabrdagi “2019 — 2021-yillarda Oʻzbekiston Respublikasini innovatsion rivojlantirish strategiyasini tasdiqlash toʻgʻrisida”gi ",
+    "comments": [
+      {
+        "id": 1,
+        "comment": "Davlat ilmiy-texnik axborot tizimini takomillashtirish"
+      },
+      {
+        "id": 2,
+        "comment": "Davlat ilmiy-texnik axborot tizimini takomillashtirish"
+      }
+    ],
+    "image": "https://backend.csti.uz/api/v1/rahabs"
+  },
+  "faoliyat": {
+    "title": "Ilmiy texnik axborot markazi haqida",
+    "info": "Oʻzbekiston Respublikasi Prezidentining 2017-yil 30-noyabrdagi “Oʻzbekiston Respublikasi innovatsion rivojlanish vazirligi faoliyatini tashkil etish toʻgʻrisida”gi PQ-3416-sonli qarori, 2018-yil 21-sentyabrdagi “2019 — 2021-yillarda Oʻzbekiston Respublikasini innovatsion rivojlantirish strategiyasini tasdiqlash toʻgʻrisida”gi ",
+    "comments": [
+      {
+        "id": 1,
+        "comment": "Davlat ilmiy-texnik axborot tizimini takomillashtirish"
+      },
+      {
+        "id": 2,
+        "comment": "Davlat ilmiy-texnik axborot tizimini takomillashtirish"
+      }
+    ],
+    "image": "https://backend.csti.uz/api/v1/rahabs"
+  }
+
+}
