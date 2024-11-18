@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "http://backend.csti.uz";
+const api = "http://18.193.120.23";
 
 export const csti = {
   heroSection: async () => {

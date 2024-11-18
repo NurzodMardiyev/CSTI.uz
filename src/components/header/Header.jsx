@@ -18,7 +18,8 @@ export default function HeaderJS() {
   const queryClient = useQueryClient();
 
   const heroSection = useMutation(csti.heroSection, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
       queryClient.invalidateQueries("heroSection");
     },
     onError: (error) => {
@@ -49,6 +50,8 @@ export default function HeaderJS() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  console.log(data);
 
   if (isLoading)
     return (

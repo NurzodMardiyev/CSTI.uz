@@ -71,15 +71,15 @@ export default function Faoliyati() {
           <div className="flex flex-col gap-2">
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[0].comment}
+              {data?.comments[0]?.comment}
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[1].comment}
+              {data?.comments[1]?.comment}
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[2].comment}
+              {data?.comments[2]?.comment}
             </p>
           </div>
         </div>

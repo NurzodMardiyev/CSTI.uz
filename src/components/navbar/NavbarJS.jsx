@@ -45,7 +45,7 @@ export default function NavbarJS() {
         location.pathname === "/" ? (
           <Link
             to="about"
-            smooth={true}
+            smooth="true"
             duration={500}
             className="text-[14px] font-[500] uppercase menu_item"
           >
@@ -142,7 +142,7 @@ export default function NavbarJS() {
         <RouterLink
           className="logoSec  flex items-center gap-3"
           to="/"
-          smooth={true}
+          smooth="true"
           duration={500}
         >
           <img src={logo} alt="csti logo" className="md:w-[70px]  w-[30px]" />
@@ -156,7 +156,7 @@ export default function NavbarJS() {
               <Link
                 onClick={(e) => e.preventDefault()}
                 to="#"
-                smooth={true}
+                smooth="true"
                 duration={500}
                 className="cursor-pointer"
               >
@@ -182,7 +182,7 @@ export default function NavbarJS() {
                   key={index}
                   to={item.to}
                   className="cursor-pointer menu_item"
-                  smooth={true}
+                  smooth="true"
                   duration={500}
                 >
                   {item.title}
@@ -205,7 +205,7 @@ export default function NavbarJS() {
               <Link
                 to="contact"
                 className="cursor-pointer menu_item"
-                smooth={true}
+                smooth="true"
                 duration={500}
               >
                 Biz bilan bog'lanish
@@ -235,11 +235,11 @@ export default function NavbarJS() {
             >
               {icons.close}
             </div>
-            <Link
+            <RouterLink
               className="logoSec  flex items-start gap-3 pt-8 pb-6 bg-blue-100 ps-5 pe-3 w-full"
               onClick={handleCloseMenu}
-              to="#"
-              smooth={true}
+              to="/"
+              smooth="true"
               duration={500}
             >
               <img
@@ -250,7 +250,7 @@ export default function NavbarJS() {
               <p className="md:text-[20x] font-semibold md:mb-2 text-[12px]">
                 Ilmiy texnik axborot markazi
               </p>
-            </Link>
+            </RouterLink>
             <Dropdown menu={{ items: items1 }} className="px-5">
               <Link className="" onClick={(e) => e.preventDefault()}>
                 <Space>
@@ -276,7 +276,7 @@ export default function NavbarJS() {
                   key={index}
                   to={item.to}
                   className="cursor-pointer menu_item px-5"
-                  smooth={true}
+                  smooth="true"
                   duration={500}
                   onClick={handleCloseMenu}
                 >
@@ -301,7 +301,7 @@ export default function NavbarJS() {
                 to="contact"
                 className="px-5 cursor-pointer"
                 onClick={handleCloseMenu}
-                smooth={true}
+                smooth="true"
                 duration={500}
               >
                 Biz bilan bog'lanish

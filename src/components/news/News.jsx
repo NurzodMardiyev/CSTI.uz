@@ -120,6 +120,60 @@ const News = () => {
     );
   if (error) return <div>An error occurred: {error.message}</div>;
 
+  // const data = [
+  //   {
+  //     id: 1,
+  //     images: [
+  //       {
+  //         image:
+  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
+  //       },
+  //     ],
+  //     title: "nurzod",
+  //     content:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
+  //     source: "https://kun.uz",
+  //   },
+  //   {
+  //     id: 2,
+  //     images: [
+  //       {
+  //         image:
+  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
+  //       },
+  //     ],
+  //     title: "dima",
+  //     content:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
+  //     source: "https://kun.uz",
+  //   },
+  //   {
+  //     id: 3,
+  //     images: [
+  //       {
+  //         image:
+  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
+  //       },
+  //     ],
+  //     title: "shakae",
+  //     content:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
+  //     source: "https://kun.uz",
+  //   },
+  //   {
+  //     id: 4,
+  //     images: [
+  //       {
+  //         image:
+  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
+  //       },
+  //     ],
+  //     title: "shalea",
+  //     content:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
+  //     source: "https://kun.uz",
+  //   },
+  // ];
   return (
     <>
       {/* Asosiy page */}
@@ -133,7 +187,7 @@ const News = () => {
               So'nggi yangiliklar
             </h2>
           </div>
-          <Slider {...settings} className="mb-10 md:mt-8 mt-6 ">
+          <Slider {...settings} className="mb-10 md:mt-8 mt-6 flex">
             {data?.map((card) => (
               <div
                 key={card.id}

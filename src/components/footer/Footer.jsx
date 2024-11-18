@@ -47,7 +47,7 @@ export default function Footer() {
             </div>
           </div>
           <div className=" w-[50%] flex flex-col ">
-            <div class="relative w-full flex items-end">
+            <div className="relative w-full flex items-end">
               <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
                 Linklar
               </h3>
@@ -78,7 +78,7 @@ export default function Footer() {
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
                 <ScrollLink
                   className="flex items-center gap-3 cursor-pointer"
-                  smooth={true}
+                  smooth="true"
                   duration={500}
                   to="faoliyat"
                 >
@@ -89,7 +89,7 @@ export default function Footer() {
               <li className="md:text-[16px] text-[12px] text-[#737887] font-[400] mb-4">
                 <ScrollLink
                   className="flex items-center gap-3 cursor-pointer"
-                  smooth={true}
+                  smooth="true"
                   duration={500}
                   to="rahbariyat"
                 >
@@ -102,7 +102,7 @@ export default function Footer() {
         </div>
         <div className="flex md:w-[50%]">
           <div className=" w-[50%] flex flex-col ">
-            <div class="relative w-full flex items-end">
+            <div className="relative w-full flex items-end">
               <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
                 Bog'lanish
               </h3>
@@ -153,7 +153,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className=" w-[50%] flex flex-col ">
-            <div class="relative w-full flex items-end">
+            <div className="relative w-full flex items-end">
               <h3 className="md:text-[24px] text-[16px] text-gray-800 font-[700] uppercase footer_title  inline-block relative pb-2 ">
                 Aloqada Boling
               </h3>
@@ -164,7 +164,7 @@ export default function Footer() {
                 <ScrollLink
                   className="text-blue-500 cursor-pointer"
                   to="contact"
-                  smooth={true}
+                  smooth="true"
                   duration={1000}
                 >
                   Bizga Murojaat qiling{" "}
