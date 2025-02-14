@@ -96,7 +96,7 @@ export default function ProjectsPage() {
               />
             </div>
             <div className="flex justify-end">
-              <div className="flex flex-col  my-4">
+              <div className="flex items-center gap-3  my-4">
                 <p className="text-[16px] font-[500]">
                   Tijoratlashtirishga tavsiya etilgan loyihalar bazasi:
                 </p>

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const api = "http://18.193.120.23";
+
+const api = 'https://api.csti.uz';
+
 
 export const csti = {
   heroSection: async () => {
@@ -51,6 +53,32 @@ export const csti = {
       throw new Error(error.response ? error.response.data : error.message);
     }
   },
+  department: async () => {
+    try {
+      const { data } = await axios.get(`${api}/department/?format=json`);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  departmentId: async (id) => {
+    try {
+      const endpoint =  `${api}/department/${id}/?format=json` ;
+      const { data } = await axios.get(endpoint);
+      return data;
+    } catch (error) {
+      console.error(
+        "API error:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(error.response ? error.response.data : error.message);
+    }
+  },
+  
   about: async () => {
     try {
       const { data } = await axios.get(`${api}/about/?format=json`);

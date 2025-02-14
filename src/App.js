@@ -13,14 +13,16 @@ import DeyjeslarPage from "./components/deyjistlar/DeyjeslarPage";
 import FotoGalary from "./components/galareya/FotoGalary";
 import VideoGalary from "./components/galareya/VideoGalary";
 import ProjectsPage from "./components/projects/ProjectsPage";
+import Rahbariyat from "./components/rahbariyat/Raxbariyat";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App h-full ">
       <Routes>
         <Route path="/" element={<SCTI />}>
           <Route path="" element={<MainJS />} />
           <Route path="/tuzilma" element={<Tuzilma />} />
+          <Route path="/rahbariyat" element={<Rahbariyat />} />
           <Route path="/newspage/:id" element={<NewsPage />} />
           <Route path="/dayjes/:id" element={<DeyjeslarPage />} />
           <Route path="/projects/:id" element={<ProjectsPage />} />

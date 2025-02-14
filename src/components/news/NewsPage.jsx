@@ -77,7 +77,7 @@ export default function NewsPage() {
               {newdata[0]?.date}
             </span>
             <div className="flex gap-2  md:mb-2">
-              <div
+              {/* <div
                 className={`overflow-hidden rounded-xl md:max-w-[300px] md:h-[200px] w-1/2 ${
                   newdata[0]?.images[1] ? "block" : "hidden"
                 }`}
@@ -87,7 +87,7 @@ export default function NewsPage() {
                   alt="yangilik nomi"
                   className="rounded-xl transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full md:h-full"
                 />
-              </div>
+              </div> */}
               <div
                 className={`overflow-hidden rounded-xl md:max-w-[300px] md:h-[200px] w-1/2 ${
                   newdata[0]?.images[2] ? "block" : "hidden"

@@ -113,7 +113,7 @@ export default function DayjestlarPage() {
             >
               Faylni Yuklab olish
             </span>
-            <div className="flex gap-2  md:mb-2 mt-4">
+            {/* <div className="flex gap-2  md:mb-2 mt-4">
               <div
                 className={`overflow-hidden rounded-xl md:max-w-[300px] md:h-[200px] w-1/2 `}
               >
@@ -123,10 +123,10 @@ export default function DayjestlarPage() {
                   className="rounded-xl transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full md:h-full"
                 />
               </div>
-            </div>
+            </div> */}
             <div>
-              <p className="md:text-[16px] text-[14px]">
-                {newdata[0]?.content}
+              <p className="md:text-[16px] text-[14px] mt-5">
+                {newdata[0]?.content}  
               </p>
               <span className="text-blue-500 font-semibold text-[10px] w-full">
                 {/* {newdata[0]?.source} */}

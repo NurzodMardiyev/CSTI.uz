@@ -12,9 +12,9 @@ import Projects from "../components/projects/Projects";
 
 export default function MainJS() {
   return (
-    <div>
+    <div className="">
       <HeaderJS />
-      <Rahbariyat />
+      {/* <Rahbariyat /> */}
       <About />
       <News />
       <Projects />

@@ -79,7 +79,7 @@ export default function VideoGallery() {
 
   return (
     <div className={`relative z-10 ${isFixed ? "md:mt-[94px] mt-[48px]" : ""}`}>
-      <div className="container md:max-w-9xl md:mx-auto  md:flex-row flex-col py-6 max-w-[90%] mx-auto  bg-[#e6e6e6] my-7 md:px-10 px-6 md:py-10 rounded-[15px]">
+      <div className="container md:max-w-9xl md:mx-auto md:flex-row flex-col py-6 max-w-[90%] mx-auto bg-[#e6e6e6] my-7 md:px-10 px-6 md:py-10 rounded-[15px]">
         <div>
           <span className="head_title md:text-[16px] text-[12px] text-blue-500 font-[600] uppercase">
             Videogalareya
@@ -88,25 +88,26 @@ export default function VideoGallery() {
             Videogalareya
           </h2>
         </div>
-        <div className="grid md:grid-cols-6 grid-cols-4 space-y-6 grid-flow-row auto-rows-auto gap-x-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
           {data?.map((video, index) => (
             <div
-              className={`col-span-2 md:max-w-[420px] md:h-[300px] h-[100px] max-w-[140px] rounded-xl block overflow-hidden  ${
-                index === 0 ? "mt-6" : ""
-              }`}
               key={video.id}
-            >
+              className={`rounded-xl overflow-hidden transition-transform duration-300 ease-in-out ${
+                index === 0 ? "mt-6" : ""
+              }`}>
               <iframe
-                width="100%"
-                height="100%"
                 src={getYoutubeEmbedUrl(video.video)} // YouTube videoni iframe ichiga qo'yish
                 title={`YouTube video player ${video.id}`}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="rounded-xl"
+                className="rounded-xl w-full"
                 onClick={handleFullScreen} // Fullscreen rejimiga o'tish uchun klikni boshqarish
               ></iframe>
+              {/* Description added below the video */}
+              <p className="text-sm text-black  mt-2">
+                {video?.description}
+              </p>
             </div>
           ))}
         </div>

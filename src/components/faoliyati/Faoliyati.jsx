@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { csti } from "../../feature/queryApi.js";
 import { Flex, Spin } from "antd";
+import faoliyat from '../../images/faoliyat.png'
 
 export default function Faoliyati() {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export default function Faoliyati() {
     },
     onError: (error) => {
       console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
-    },
+    }
   });
 
   useEffect(() => {
@@ -38,12 +39,13 @@ export default function Faoliyati() {
     <div className="" id="faoliyat">
       <div className="container md:max-w-9xl md:mx-auto flex md:flex-row md:gap-0 gap-5 flex-col justify-between py-14  max-w-[90%] mx-auto items-center border my-7 md:px-14 px-6 rounded-xl md:py-20">
         <div className=" leftSec md:max-w-[48%] relative">
-          <div className="md:max-w-[550px] border h-[550px] overflow-hidden rounded-[20px]">
+          <div className="md:max-w-[550px] border h-[550px]  overflow-hidden rounded-[20px]">
             <img
-              src={data?.image}
+              src={faoliyat}
               alt="aboutImage"
               className="w-full object-cover h-full rounded-[20px] transition-transform transform hover:scale-110 duration-300"
             />
+            
           </div>
         </div>
         <div className="rightSec md:max-w-[48%]">
@@ -52,34 +54,37 @@ export default function Faoliyati() {
               Faoliyatimiz
             </span>
             <h2 className="font-[700] md:text-[40px] text-[24px] text-gray-800 md:leading-[50px] mb-4">
-              {data?.title}
+            Ilmiy-texnik axborot markazi
             </h2>
             <p
               className={`md:text-[16px] text-[14px] text-[#737887] font-[400] ${
                 show1 ? "line-clamp-none" : "line-clamp-6"
-              }  md:line-clamp-none md:mb-4`}
-            >
-              {data?.info}
+              }  md:line-clamp-none md:mb-4`}>
+              Ilmiy-texnik axborot tizimi bazasida axborot-tahliliy xizmatlar
+              toʻliq majmuasi bilan milliy innovatsion tizim qatnashchilarini
+              taʼminlovchi yagona axborot makonini shakllantirish   
             </p>
             <span
               className="text-blue-500 cursor-pointer  mb-4 inline-block md:hidden"
-              onClick={() => setShow1(!show1)}
-            >
+              onClick={() => setShow1(!show1)}>
               yana...
             </span>
           </div>
           <div className="flex flex-col gap-2">
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[0]?.comment}
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Laboriosam tempora sunt aut.
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[1]?.comment}
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Laboriosam tempora sunt aut.
             </p>
             <p className="md:text-[16px] text-[14px] text-gray-800 font-[500] flex items-center gap-2">
               <span className="text-blue-500">{icons.check}</span>
-              {data?.comments[2]?.comment}
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Laboriosam tempora sunt aut.
             </p>
           </div>
         </div>

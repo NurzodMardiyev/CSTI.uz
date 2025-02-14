@@ -23,7 +23,7 @@ export default function HeadNavbar() {
   ];
 
   return (
-    <div className="w-full border-b border-b-gray-300">
+    <div className="w-full  border-b border-b-gray-300 text-white">
       <div className="container md:max-w-9xl md:mx-auto flex justify-between md:py-3 py-1.5 max-w-[90%] mx-auto items-center">
         <div className="leftSec">
           <div className="flex md:gap-6 gap-2 items-center">
@@ -32,9 +32,9 @@ export default function HeadNavbar() {
                 <Link
                   to={item.type}
                   key={index}
-                  className={`${item.display}  gap-2 md:text-[12px] text-[10px] text-[#6A6F7C]  font-[600] md:flex  flex items-center`}
+                  className={`${item.display}  gap-2 md:text-[12px] text-[10px] text-white  font-[600] md:flex  flex items-center`}
                 >
-                  <span className="md:text-[14px]] text-[12px] text-blue-500">
+                  <span className="md:text-[14px]] text-[12px] text-white">
                     {item.icon}
                   </span>
                   <span>{item.item}</span>
@@ -45,7 +45,7 @@ export default function HeadNavbar() {
         </div>
         <div className="rightSec">
           <div className="flex items-center gap-4">
-            <span className="text-[#141D38] text-[12px] font-[600] md:block hidden">
+            <span className="text-white text-[12px] font-[600] md:block hidden">
               Bizga Qoshiling:
             </span>
             <Link

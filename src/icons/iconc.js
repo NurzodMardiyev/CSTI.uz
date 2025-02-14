@@ -31,5 +31,11 @@ export const icons = {
   contact: <MdContactPhone />,
   whatsapp: <FaWhatsapp />,
   right: <FaChevronRight />,
-  telegram: <FaTelegramPlane />,
+  telegram: <FaTelegramPlane />
+};
+export const links = {
+  instagram: "https://www.instagram.com/innovation.gov.uz/",
+  youtube: "https://www.youtube.com/@mininnovation",
+  telegram: "https://t.me/innovatsion_rivojlanish",
+  facebook: "https://www.facebook.com/innovation.gov.uz"
 };

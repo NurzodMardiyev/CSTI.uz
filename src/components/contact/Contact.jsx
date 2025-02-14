@@ -1,70 +1,54 @@
 import React, { useRef, useState } from "react";
 import { icons } from "../../icons/iconc.js";
-// import { Select } from "antd";
-import { Input } from "antd";
-import "../../App.css";
+import { Form, Input, Button } from "antd";
 import { useForm } from "react-hook-form";
 import { csti } from "../../feature/queryApi.js";
 import { useMutation, useQueryClient } from "react-query";
-
 import { Toast } from "primereact/toast";
+import "../../App.css";
 
 const { TextArea } = Input;
 
-// const handleChange = (value) => {
-//   console.log(`selected ${value}`);
-// };
 export default function Contact() {
-  const [valueAppeal, setValueAppeal] = useState();
-  const { register, handleSubmit, reset, setValue } = useForm();
-  const toast = useRef(null);
-
+  const [form] = Form.useForm();
   const queryClient = useQueryClient();
+  const toast = useRef(null);
 
   const appeals = useMutation(csti.appeals, {
     onSuccess: () => {
       queryClient.invalidateQueries();
-      showSuccess();
-      setValueAppeal("");
-      reset();
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Muvaffaqiyatli yuborildi!",
+        life: 3000
+      });
+      form.resetFields();
     },
     onError: () => {
-      showError();
-      console.log("error mutation");
-    },
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Ma'lumotlarni to'liq kiritilganligini tekshiring!",
+        life: 3000
+      });
+    }
   });
 
-  const handletakeValue = (data) => {
-    appeals.mutate(data);
-
-    setValue("text", valueAppeal);
-
-    console.log(data);
-  };
-
-  // If code success give to backend
-
-  const showSuccess = () => {
+  const onFinish = (values) => {
     toast.current.show({
       severity: "success",
       summary: "Success",
       detail: "Muvaffaqiyatli yuborildi!",
-      life: 3000,
+      life: 3000
     });
+    form.resetFields()
+    // appeals.mutate(values);
   };
 
-  // If code error give to backend
-  const showError = () => {
-    toast.current.show({
-      severity: "error",
-      summary: "Error",
-      detail: "Ma'lumotlarn to'liq kiritilganga ishonch hosil qiling!",
-      life: 3000,
-    });
-  };
   return (
     <div className="contact_bg" id="contact">
-      <div className="container md:max-w-9xl md:mx-auto flex flex-col justify-start max-w-[90%] mx-auto items-start md:py-20 py-14">
+      <div className="container md:max-w-9xl md:mx-auto max-w-[90%] mx-auto md:py-20 py-14">
         <div>
           <span className="head_title md:text-[16px] text-[12px] text-blue-500 font-[600] uppercase flex items-center gap-2">
             {icons.contact} Biz bilan bog'lanish
@@ -74,62 +58,56 @@ export default function Contact() {
           </h2>
           <p className="md:text-[16px] text-[14px] text-[#737887] font-[400] mb-4 md:max-w-[700px]">
             Respublikani innovatsion va ilmiy-texnik rivojlantirish sohasida
-            jamiyat va davlat hayotini har tomonlama rivojlantirishga,
-            mamlakatning intellektual va texnologik salohiyatini oshirish uchun
-            bizga murojat qiling.
+            jamiyat va davlat hayotini rivojlantirish uchun bizga murojaat
+            qiling.
           </p>
         </div>
-        <div className="md:w-[70%] w-full">
-          <form
-            action=""
-            className="grid grid-col-1 gap-x-6 gap-y-6"
-            onSubmit={handleSubmit(handletakeValue)}
-          >
-            <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
-                <div className="mt-2">
-                  <input
-                    id="fio_otm"
-                    name="fio_otm"
-                    type="text"
-                    autoComplete="kotibining-kompetentsiyasi"
-                    className="dark:bg-gray-700 dark:text-white text-[16px]  dark:ring-0 block w-full  border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
-                    placeholder="Ism Familiyangiz"
-                    {...register("full_name")}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-3">
-                <div className="mt-2">
-                  <input
-                    id="fio_otm"
-                    name="fio_otm"
-                    type="text"
-                    autoComplete="kotibining-kompetentsiyasi"
-                    className="dark:bg-gray-700 dark:text-white text-[16px]  dark:ring-0 block w-full  border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
-                    placeholder="Telefon Raqamangiz"
-                    {...register("phone")}
-                  />
-                </div>
-              </div>
+        <div className="md:w-[50%] w-full">
+          <Form
+            form={form}
+            onFinish={onFinish}
+            layout="vertical"
+            className="grid grid-col-1 gap-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="full_name"
+                label="Ism Familiya"
+                rules={[{ required: true, message: "Ismingizni kiriting!" }]}>
+                <Input
+                  className="rounded-md  outline-gray-400"
+                  placeholder="Ism Familiyangiz"
+                />
+              </Form.Item>
+              <Form.Item
+                name="phone"
+                label="Telefon Raqam"
+                rules={[
+                  { required: true, message: "Telefon raqamingizni kiriting!" }
+                ]}>
+                <Input
+                  className="rounded-md  outline-gray-400"
+                  placeholder="Telefon Raqamangiz"
+                />
+              </Form.Item>
             </div>
-            <TextArea
-              value={valueAppeal}
-              onChange={(e) => setValueAppeal(e.target.value)}
-              placeholder="Murojaatingiz"
-              className="w-full "
-              autoSize={{
-                minRows: 3,
-                maxRows: 5,
-              }}
-            />
+            <Form.Item
+              name="text"
+              label="Murojaat Matni"
+              rules={[
+                { required: true, message: "Murojaatingizni kiriting!" }
+              ]}>
+              <TextArea
+                placeholder="Murojaatingiz"
+                autoSize={{ minRows: 3, maxRows: 5 }}
+              />
+            </Form.Item>
             <Toast ref={toast} />
-            <div>
-              <button className="px-10 py-3 bg-blue-500 text-white uppercase font-[500]">
-                Send Message
-              </button>
-            </div>
-          </form>
+            <Form.Item>
+              <Button  type="primary" htmlType="submit" >
+                yuborish
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </div>

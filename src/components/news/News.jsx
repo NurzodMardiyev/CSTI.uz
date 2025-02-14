@@ -120,74 +120,22 @@ const News = () => {
     );
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  // const data = [
-  //   {
-  //     id: 1,
-  //     images: [
-  //       {
-  //         image:
-  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //       },
-  //     ],
-  //     title: "nurzod",
-  //     content:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
-  //     source: "https://kun.uz",
-  //   },
-  //   {
-  //     id: 2,
-  //     images: [
-  //       {
-  //         image:
-  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //       },
-  //     ],
-  //     title: "dima",
-  //     content:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
-  //     source: "https://kun.uz",
-  //   },
-  //   {
-  //     id: 3,
-  //     images: [
-  //       {
-  //         image:
-  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //       },
-  //     ],
-  //     title: "shakae",
-  //     content:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
-  //     source: "https://kun.uz",
-  //   },
-  //   {
-  //     id: 4,
-  //     images: [
-  //       {
-  //         image:
-  //           "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //       },
-  //     ],
-  //     title: "shalea",
-  //     content:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque labore possimus officiis.",
-  //     source: "https://kun.uz",
-  //   },
-  // ];
+  
   return (
+
     <>
       {/* Asosiy page */}
       <div className="md:mb-10" id="yangiliklar">
-        <div className="container md:max-w-9xl md:mx-auto justify-between py-14 max-w-[90%] mx-auto items-center bg-[#1c1c25] my-7 md:px-10 px-6 md:py-10 rounded-[15px]">
-          <div className="md:mt-16 px-6 md:px-0">
-            <span className="md:text-[16px] text-[12px] font-[600] text-white uppercase">
+        <div className="container md:max-w-9xl md:mx-auto justify-between  max-w-[90%] mx-auto items-center  bg-[#12284C]  md:px-10 px-6  rounded-[15px]">
+          <div className="md:mt-16 px-6 py-7 md:px-0">
+            <span className="md:text-[16px] text-[12px] mt-4 font-[600] text-[#3F83F8] uppercase">
               yangiliklar
             </span>
-            <h2 className="md:text-[40px] text-[24px] font-[700] text-white news_title">
+            <h2 className="md:text-[40px] text-[24px] font-[700] text-white ">
               So'nggi yangiliklar
             </h2>
           </div>
-          <Slider {...settings} className="mb-10 md:mt-8 mt-6 flex">
+          <Slider {...settings} className="mb-10  flex">
             {data?.map((card) => (
               <div
                 key={card.id}
@@ -202,7 +150,7 @@ const News = () => {
                       <img
                         src={card.images[0].image}
                         alt={card.title}
-                        className="transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full h-full"
+                        className="transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full  h-[250px]"
                       />
                     </div>
                     <div className="text-white rounded-[10px] p-5 mt-4 w-full">

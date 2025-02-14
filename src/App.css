@@ -19,13 +19,16 @@
   z-index: 999;
 }
 
-#app {
+.app {
   height: 100vh;
+  padding: 0 ;
+  width: 100%;
 }
 html,
 body {
   position: relative;
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -57,9 +60,8 @@ body {
   width: 100%;
   object-fit: cover;
 }
-.headerInfo {
-  background: linear-gradient(to right, black, transparent) !important;
-}
+
+
 .slick-prev:before, .slick-next:before {
   font-size: 40px !important;
 }
@@ -82,7 +84,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100px;
-  background: blue
+  background: white
 }
 .navbar {
   position: relative !important;
@@ -108,4 +110,16 @@ body {
    .logo {
     font-size: 18px;
    }
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
 }

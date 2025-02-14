@@ -14,12 +14,12 @@ export default function Deyjistlar() {
       queryClient.invalidateQueries("heroSection");
     },
     onError: (error) => {
-      console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
-    },
+      console.log("Mutation error:", error);
+    }
   });
 
   useEffect(() => {
-    dyjes.mutate(); // Mutationni boshlash
+    dyjes.mutate();
   }, []);
 
   const { data, error, isLoading } = useQuery(["dyjes"], () => csti.dyjes(""));
@@ -46,8 +46,8 @@ export default function Deyjistlar() {
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div>
-      <div className="container bg-[#fafafa] md:max-w-9xl md:mx-auto justify-between py-14  max-w-[90%] mx-auto items-center border my-7 md:px-14 px-6 rounded-xl md:py-20">
+    <div className="mb-20">
+      <div className="container bg-[#fafafa] md:max-w-9xl md:mx-auto justify-between py-3 max-w-[90%] mx-auto items-center border mb-7 md:px-14 px-6 rounded-xl md:py-10">
         <div className="flex items-center w-full justify-between">
           <div>
             <span className="head_title md:text-[16px] text-[12px] text-blue-500 font-[600] uppercase">
@@ -66,19 +66,25 @@ export default function Deyjistlar() {
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-4 md:grid-cols-6 md:gap-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {randomProjects?.map((card) => {
             return (
               <Link
                 to={`/dayjes/${card.id}`}
                 key={card.id}
-                className="col-span-2 border rounded-xl p-6 hover:shadow-lg transition-all duration-150 "
+                className="col-span-1 border rounded-xl p-4 hover:shadow-lg transition-all duration-300"
               >
-                <h2 className="flex items-start font-[500] md:text-[20px] text-[16px] gap-2">
-                  <GoProjectRoadmap className="mt-2" />{" "}
-                  <span className="flex-1">{card.name}</span>
-                </h2>
-                <p className="line-clamp-4">{card.content}</p>
+                <div className="flex flex-col items-">
+                  <div className="overflow-hidden rounded-xl w-full h-[200px]">
+                    <img
+                      src={card.image}
+                      alt={card.name}
+                      className="rounded-xl  transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover w-full h-full"
+                    />
+                  </div>
+                  <h3 className="font-[500] text-[18px] mt-4 line-clamp-2">{card.name}</h3>
+                  <p className="mt-2 text-gray-600 text-sm line-clamp-2">{card.content}</p>
+                </div>
               </Link>
             );
           })}

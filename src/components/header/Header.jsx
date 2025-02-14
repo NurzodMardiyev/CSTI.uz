@@ -11,7 +11,9 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { csti } from "../../feature/queryApi.js";
 import { Flex, Spin } from "antd";
-
+import bg_video from "../../videos/video.mp4";
+import NavbarJS from "../navbar/NavbarJS.jsx";
+import HeadNavbar from "../navbar/HeadNavbar.jsx";
 export default function HeaderJS() {
   const [isFixed, setIsFixed] = useState(false);
 
@@ -24,7 +26,7 @@ export default function HeaderJS() {
     },
     onError: (error) => {
       console.log("Mutation error:", error); // Xatolik haqida batafsil ma'lumot
-    },
+    }
   });
 
   useEffect(() => {
@@ -51,8 +53,6 @@ export default function HeaderJS() {
     };
   }, []);
 
-  console.log(data);
-
   if (isLoading)
     return (
       <div className="absolute w-full h-[100vh] top-0 left-0 flex items-center justify-center">
@@ -63,47 +63,35 @@ export default function HeaderJS() {
     );
   if (error) return <div>An error occurred: {error.message}</div>;
   return (
-    <div className={`relative z-10 ${isFixed ? "md:mt-[93px] mt-[48px]" : ""}`}>
-      <div className="headerInfo absolute w-full h-[80vh] z-10 text-white">
-        <div className="container md:max-w-9xl md:mx-auto flex flex-col  md:py-3 py-1.5 max-w-[90%] mx-auto justify-center h-full gap-3">
-          <h1 className="md:text-[54px] font-[600] head_ttile text-[40px]">
-            {data[0]?.title}
+    <div
+      className={`relative z-10 w-full  ${
+        isFixed ? "md:mt-[93px] mt-[48px]" : ""
+      }`}>
+      <div className=" bg-black/40  absolute w-full h-[100vh] z-10 text-white">
+        {!isFixed && (
+          <>
+            <HeadNavbar />
+            <NavbarJS isFixed={isFixed} />
+          </>
+        )}
+        <div className="container md:max-w-9xl md:mx-auto flex flex-col md:py-3  py-1.5 max-w-[90%] mx-auto justify-center h-full gap-3">
+          <h1 className="lg:text-[64px] font-[600] head_ttile text-[40px]">
+          Ilmiy-texnik axborot markazi
           </h1>
-          <p className="md:text-[16px] text-[14px] md:w-[750px] w-[330px] ]">
-            {data[0]?.description}
+          <p className="md:text-[18px] text-[14px] md:w-[750px] w-[330px] mb-48">
+            Ilmiy-texnik axborot markazlari, odatda, ilmiy jurnallar, texnologik
+            rivojlanishlar va sanoat ehtiyojlariga mos keladigan axborotni
+            taqdim etishga yo'naltirilgan. Shuningdek, ular ilm-fan va
+            texnologiyaning rivojlanishiga hissa qo'shadi.
           </p>
-          <div></div>
         </div>
       </div>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-      >
-        <div className="">
-          {data?.map((item) => (
-            <SwiperSlide
-              className="w-full h-[60vh] rounded-[10px]"
-              key={item.id}
-            >
-              <img
-                src={item.image}
-                alt="header 1"
-                className="w-full h-[100%]"
-              />
-            </SwiperSlide>
-          ))}
-        </div>
-      </Swiper>
+
+      <div className="h-[100vh] w-full">
+        <video className="w-full h-full object-cover" autoPlay muted loop>
+          <source src={bg_video} type="video/mp4" />
+        </video>
+      </div>
     </div>
   );
 }
